@@ -14,6 +14,7 @@
 #
 # TODO: Add a lot more comments and add docstrings!
 
+import pdb
 import sys
 import string
 import re
@@ -649,8 +650,10 @@ def main():
 
             m = re.match(alloc_re, line)
             if m:
-                (fun, offset) = symbol.lookup(m.group(1))
-                rootDB.add_malloc("{}+{}".format(fun, offset),
+                # (fun, offset) = symbol.lookup(m.group(1))
+                # import pdb; pdb.set_trace()
+                # rootDB.add_malloc("{}+{}".format(fun, offset),
+                rootDB.add_malloc(line.split()[0],
                                   m.group(2),
                                   int(m.group(3)),
                                   int(m.group(4)), line)
@@ -708,8 +711,8 @@ def main():
     if len(opts.account_file) != 0:
         print "Creating account file at {}".format(opts.account_file)
         rootDB.print_account(opts.account_file,
-                             opts.order_by,
-                             tree)
+                             opts.order_by)
+                            #  tree)
 
     if len(opts.rings_file) != 0 or opts.rings_show == True :
         if tree is None:
